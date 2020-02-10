@@ -92,6 +92,7 @@ sub all_critic_ok {
     my @files = Perl::Critic::Utils::all_perl_files(@dirs_or_files);
     croak 'Nothing to critique' if not @files;
 
+    warn "from $from to $to, \@_:", $dirs_or_files[0], @dirs_or_files[1];
     my $have_mce = eval { require MCE::Grep; MCE::Grep->import; 1 };
     return $have_mce ? _test_parallel($from, $to, @files) : _test_serial($from, $to, @files);
 }
