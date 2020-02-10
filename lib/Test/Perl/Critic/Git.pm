@@ -47,7 +47,7 @@ sub import {
 
 sub critic_ok {
 
-    my ( $file, $from, $to, $test_name ) = @_;
+    my ( $from, $to, $file, $test_name ) = @_;
     croak q{no file specified} if not defined $file;
     croak qq{"$file" does not exist} if not -f $file;
     $test_name ||= qq{Test::Perl::Critic for "$file"};
@@ -87,7 +87,9 @@ sub critic_ok {
 #---------------------------------------------------------------------------
 
 sub all_critic_ok {
-    my ($from, $to) = (shift, shift);
+    my $from = shift @_;
+    my $to = shift @_;
+
     my @dirs_or_files = @_ ? @_ : (-e 'blib' ? 'blib' : 'lib');
     my @files = Perl::Critic::Utils::all_perl_files(@dirs_or_files);
     croak 'Nothing to critique' if not @files;
