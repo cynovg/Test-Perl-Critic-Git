@@ -87,19 +87,19 @@ sub critic_ok {
 #---------------------------------------------------------------------------
 
 sub all_critic_ok {
-
+    my ($from, $to) = shift, shift;
     my @dirs_or_files = @_ ? @_ : (-e 'blib' ? 'blib' : 'lib');
     my @files = Perl::Critic::Utils::all_perl_files(@dirs_or_files);
     croak 'Nothing to critique' if not @files;
 
     my $have_mce = eval { require MCE::Grep; MCE::Grep->import; 1 };
-    return $have_mce ? _test_parallel(@files) : _test_serial(@files);
+    return $have_mce ? _test_parallel($from, $to, @files) : _test_serial($from, $to, @files);
 }
 
 #---------------------------------------------------------------------------
 
 sub _test_parallel {
-      my @files = @_;
+      my ($from, $to, @files) = @_;
 
       # Since tests are running in forked MCE workers, test results could arrive
       # in any order. The test numbers will be meaningless, so turn them off.
@@ -123,7 +123,8 @@ sub _test_parallel {
 #---------------------------------------------------------------------------
 
 sub  _test_serial {
-  my @files = @_;
+  my ($from, $to, @files) = @_;
+
 
   my $okays = grep {critic_ok($_)} @files;
   my $pass = $okays == @files;
