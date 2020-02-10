@@ -9,7 +9,7 @@ use Carp qw(croak);
 use English qw(-no_match_vars);
 
 use Test::Builder qw();
-use Perl::Critic qw();
+use Perl::Critic::Git qw();
 use Perl::Critic::Violation qw();
 use Perl::Critic::Utils;
 
@@ -21,13 +21,6 @@ our $VERSION = '1.04';
 
 my $TEST = Test::Builder->new;
 my $DIAG_INDENT = q{  };
-my %CRITIC_ARGS = ();
-
-my $CRITIC_OBJ = undef;
-my $BUILD_CRITIC = sub {
-    return $CRITIC_OBJ if defined $CRITIC_OBJ;
-    $CRITIC_OBJ = Perl::Critic->new( @_ );
-};
 
 #---------------------------------------------------------------------------
 
@@ -44,10 +37,6 @@ sub import {
 
     # -format is supported for backward compatibility.
     if ( exists $args{-format} ) { $args{-verbose} = $args{-format}; }
-    %CRITIC_ARGS = %args;
-
-    # Reset possibly lazy-initialized Perl::Critic.
-    $CRITIC_OBJ = undef;
 
     $TEST->exported_to($caller);
 
@@ -58,7 +47,7 @@ sub import {
 
 sub critic_ok {
 
-    my ( $file, $test_name ) = @_;
+    my ( $file, $from, $to $test_name ) = @_;
     croak q{no file specified} if not defined $file;
     croak qq{"$file" does not exist} if not -f $file;
     $test_name ||= qq{Test::Perl::Critic for "$file"};
@@ -69,8 +58,10 @@ sub critic_ok {
 
     # Run Perl::Critic
     my $status = eval {
-        $critic     = $BUILD_CRITIC->( %CRITIC_ARGS );
-        @violations = $critic->critique( $file );
+        $critic     = Perl::Critic::Git->new(
+            file   => $file,
+        );
+        @violations = $critic->diff_violations( from => $from, to => $to );
         $ok         = not scalar @violations;
         1;
     };
