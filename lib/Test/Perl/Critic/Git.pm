@@ -47,7 +47,7 @@ sub import {
 
 sub critic_ok {
 
-    my ( $file, $from, $to $test_name ) = @_;
+    my ( $file, $from, $to, $test_name ) = @_;
     croak q{no file specified} if not defined $file;
     croak qq{"$file" does not exist} if not -f $file;
     $test_name ||= qq{Test::Perl::Critic for "$file"};
@@ -109,7 +109,7 @@ sub _test_parallel {
       # workers. So we disable the T::B sanity checks at the end of its life.
       $TEST->no_ending(1);
 
-      my $okays = MCE::Grep->run( sub { critic_ok($_) }, @files );
+      my $okays = MCE::Grep->run( sub { critic_ok($from, $to, $_) }, @files );
       my $pass = $okays == @files;
 
       # To make Test::Harness happy, we must emit a test plan and a sensible exit
@@ -126,7 +126,7 @@ sub  _test_serial {
   my ($from, $to, @files) = @_;
 
 
-  my $okays = grep {critic_ok($_)} @files;
+  my $okays = grep {critic_ok($from, $to, $_)} @files;
   my $pass = $okays == @files;
 
   $TEST->done_testing(scalar @files);
