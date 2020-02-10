@@ -42,7 +42,7 @@ my $class = Module::Build->subclass( code => <<'END_SUBCLASS' );
 END_SUBCLASS
 
 my $builder = $class->new(
-    module_name     => 'Test::Perl::Critic',
+    module_name     => 'Test::Perl::Critic::Git',
     dist_author     => 'Jeffrey Thalhammer <thaljef@cpan.org>',
     dist_abstract   => 'Use Perl::Critic in test programs.',
     license         => 'perl',
@@ -59,6 +59,7 @@ my $builder = $class->new(
         'English'                   => 0,
         'MCE'                       => 1.827,
         'Perl::Critic'              => 1.105,
+        'Perl::Critic::Git'         => 0,
         'Perl::Critic::Utils'       => 1.105,
         'Perl::Critic::Violation'   => 1.105,
         'strict'                    => 0,

@@ -40,7 +40,7 @@
    },
    "provides" : {
       "Test::Perl::Critic" : {
-         "file" : "lib/Test/Perl/Critic.pm",
+         "file" : "lib/Test/Perl/Critic/Git.pm",
          "version" : "1.04"
       }
    },
