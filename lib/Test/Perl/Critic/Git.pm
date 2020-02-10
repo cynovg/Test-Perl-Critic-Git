@@ -87,7 +87,7 @@ sub critic_ok {
 #---------------------------------------------------------------------------
 
 sub all_critic_ok {
-    my ($from, $to) = shift, shift;
+    my ($from, $to) = (shift, shift);
     my @dirs_or_files = @_ ? @_ : (-e 'blib' ? 'blib' : 'lib');
     my @files = Perl::Critic::Utils::all_perl_files(@dirs_or_files);
     croak 'Nothing to critique' if not @files;
