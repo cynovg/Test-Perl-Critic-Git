@@ -1,5 +1,5 @@
 requires 'Perl::Critic';
-requires 'Perl::Critic::Git';
+requires 'Perl::Critic::Git', git => 'https://github.com/mrsndmn/Test-Perl-Critic-Git.git', ref => 'diff_blame';
 requires 'MCE';
 requires 'Carp';
 requires 'English';
