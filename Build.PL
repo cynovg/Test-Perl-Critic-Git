@@ -71,12 +71,12 @@ my $builder = $class->new(
         'Test::More'                => 0,
     },
 
-    add_to_cleanup  => [ qw(Test-Perl-Critic-* MANIFEST.bak) ],
+    add_to_cleanup  => [ qw(Test-Perl-Critic-Git-* MANIFEST.bak) ],
 
     meta_merge          => {
         resources => {
-            bugtracker  => 'https://github.com/Perl-Critic/Test-Perl-Critic/issues',
-            repository  => 'git://github.com/Perl-Critic/Test-Perl-Critic.git',
+            bugtracker  => 'https://github.com/mrsndmn/Test-Perl-Critic-Git/issues',
+            repository  => 'git://https://github.com/mrsndmn/Test-Perl-Critic-Git.git',
             license     => [ 'http://dev.perl.org/licenses' ],
             homepage    => 'http://perlcritic.com',
 

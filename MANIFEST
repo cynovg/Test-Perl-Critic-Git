@@ -2,7 +2,7 @@
 Build.PL
 Changes
 INSTALL
-lib/Test/Perl/Critic.pm
+lib/Test/Perl/Critic/Git.pm
 LICENSE
 MANIFEST			This list of files
 MANIFEST.SKIP
