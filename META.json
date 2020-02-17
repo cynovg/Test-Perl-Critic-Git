@@ -12,7 +12,7 @@
       "url" : "http://search.cpan.org/perldoc?CPAN::Meta::Spec",
       "version" : 2
    },
-   "name" : "Test-Perl-Critic",
+   "name" : "Test-Perl-Critic-Git",
    "prereqs" : {
       "build" : {
          "requires" : {
@@ -40,7 +40,7 @@
       }
    },
    "provides" : {
-      "Test::Perl::Critic" : {
+      "Test::Perl::Critic::Git" : {
          "file" : "lib/Test/Perl/Critic/Git.pm",
          "version" : "1.04"
       }
