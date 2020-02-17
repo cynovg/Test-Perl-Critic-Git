@@ -14,7 +14,7 @@ meta-spec:
   version: '1.4'
 name: Test-Perl-Critic-Git
 provides:
-  Test::Perl::Critic-Git:
+  Test::Perl::Critic::Git:
     file: lib/Test/Perl/Critic/Git.pm
     version: '1.04'
 requires:
