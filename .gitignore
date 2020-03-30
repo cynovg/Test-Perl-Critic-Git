@@ -8,4 +8,6 @@ blib
 cover_db
 nytprof
 nytprof.out
+local
 .vstags
+
