@@ -128,7 +128,11 @@ sub all_critic_ok {
         @files = Perl::Critic::Utils::all_perl_files(@dirs_or_files);
     }
 
-    croak 'Nothing to critique' if not @files;
+    unless(@files) {
+      $TEST->ok(1, 'Nothing to critique');
+      $TEST->done_testing();
+      return;
+    }
 
     my $have_mce = eval { require MCE::Grep; MCE::Grep->import; 1 };
     return $have_mce ? _test_parallel($from, $to, @files) : _test_serial($from, $to, @files);
