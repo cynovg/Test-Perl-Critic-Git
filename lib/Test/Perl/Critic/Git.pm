@@ -94,14 +94,16 @@ sub _diff_perl_files {
     my $r = Git::Repository->new();
     my $command = $r->command("diff", "--name-only", $from, $to);
 
-    if( $command->code() != 0 ) {
+    my @changed_files = $command->final_output();
+
+    if( $command->exit() != 0 ) {
         croak sprintf(
             "Cant execute git diff command (exit code: %d). Output:\n%s",
-            $command->code(), join("", $command->final_output())
+            $command->exit(), join("", @changed_files)
         );
     }
 
-    my @changed_files = $command->final_output();
+
     return grep{ Perl::Critic::Utils::_is_perl($_) } @changed_files;
 }
 
@@ -111,6 +113,8 @@ sub _diff_perl_files {
 sub all_critic_ok {
     my ($from, $to, $params) = @_;
 
+    croak "\$from and \$to params are both required for all_critic_ok" if !$from || !$to;
+
     my @dirs_or_files = $params->{dirs}
         ? @{$params->{dirs}}
         : (-e 'blib' ? 'blib' : 'lib');
@@ -118,7 +122,7 @@ sub all_critic_ok {
 
     my @files;
     if($params->{diff_only}) {
-        @files = _diff_perl_files()
+        @files = _diff_perl_files($from, $to);
     }
     else {
         @files = Perl::Critic::Utils::all_perl_files(@dirs_or_files);
