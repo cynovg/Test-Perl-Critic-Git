@@ -9,6 +9,8 @@ use Carp qw(croak);
 use English qw(-no_match_vars);
 
 use Test::Builder qw();
+
+use Git::Repository;
 use Perl::Critic::Git qw();
 use Perl::Critic::Violation qw();
 use Perl::Critic::Utils;
@@ -86,12 +88,42 @@ sub critic_ok {
 
 #---------------------------------------------------------------------------
 
-sub all_critic_ok {
-    my $from = shift @_;
-    my $to = shift @_;
+sub _diff_perl_files {
+    my ($from, $to) = @_;
 
-    my @dirs_or_files = @_ ? @_ : (-e 'blib' ? 'blib' : 'lib');
-    my @files = Perl::Critic::Utils::all_perl_files(@dirs_or_files);
+    my $r = Git::Repository->new();
+    my $command = $r->command("diff", "--name-only", $from, $to);
+
+    if( $command->code() != 0 ) {
+        croak sprintf(
+            "Cant execute git diff command (exit code: %d). Output:\n%s",
+            $command->code(), join("", $command->final_output())
+        );
+    }
+
+    my @changed_files = $command->final_output();
+    return grep{ Perl::Critic::Utils::_is_perl($_) } @changed_files;
+}
+
+#---------------------------------------------------------------------------
+
+
+sub all_critic_ok {
+    my ($from, $to, $params) = @_;
+
+    my @dirs_or_files = $params->{dirs}
+        ? @{$params->{dirs}}
+        : (-e 'blib' ? 'blib' : 'lib');
+
+
+    my @files;
+    if($params->{diff_only}) {
+        @files = _diff_perl_files()
+    }
+    else {
+        @files = Perl::Critic::Utils::all_perl_files(@dirs_or_files);
+    }
+
     croak 'Nothing to critique' if not @files;
 
     my $have_mce = eval { require MCE::Grep; MCE::Grep->import; 1 };
