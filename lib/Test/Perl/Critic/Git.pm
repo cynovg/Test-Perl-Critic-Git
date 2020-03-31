@@ -104,7 +104,7 @@ sub _diff_perl_files {
     }
 
 
-    return grep{ Perl::Critic::Utils::_is_perl($_) } @changed_files;
+    return grep { -f $_ } grep{ Perl::Critic::Utils::_is_perl($_) } @changed_files;
 }
 
 #---------------------------------------------------------------------------
