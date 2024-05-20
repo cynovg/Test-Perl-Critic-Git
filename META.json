@@ -42,7 +42,7 @@
    "provides" : {
       "Test::Perl::Critic::Git" : {
          "file" : "lib/Test/Perl/Critic/Git.pm",
-         "version" : "1.05"
+         "version" : "1.06"
       }
    },
    "release_status" : "stable",
@@ -59,6 +59,6 @@
          "url" : "git://github.com/Perl-Critic/Test-Perl-Critic.git"
       }
    },
-   "version" : "1.05",
+   "version" : "1.06",
    "x_serialization_backend" : "JSON::PP version 2.97001"
 }
