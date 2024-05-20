@@ -53,7 +53,7 @@
          }
       }
    },
-   "release_status" : "unstable",
+   "release_status" : "stable",
    "resources" : {
       "bugtracker" : {
          "web" : "https://github.com/cynovg/Test-Perl-Critic-Git/issues"
