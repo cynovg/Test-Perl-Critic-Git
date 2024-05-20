@@ -30,7 +30,7 @@
             "English" : 0,
             "MCE" : 1.827,
             "Perl::Critic" : 1.105,
-            "Perl::Critic::Git" : 0,
+            "Perl::Critic::Git" : "v1.3.3",
             "Perl::Critic::Utils" : 1.105,
             "Perl::Critic::Violation" : 1.105,
             "Test::Builder" : 0.88,
