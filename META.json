@@ -56,13 +56,13 @@
    "release_status" : "unstable",
    "resources" : {
       "bugtracker" : {
-         "web" : "https://github.com/cynovg/Test-Perl-Critic-Git/issues"
+         "web" : "https://github.com/mrsndmn/Test-Perl-Critic-Git/issues"
       },
-      "homepage" : "https://github.com/cynovg/Test-Perl-Critic-Git",
+      "homepage" : "https://github.com/mrsndmn/Test-Perl-Critic-Git",
       "repository" : {
          "type" : "git",
-         "url" : "https://github.com/cynovg/Test-Perl-Critic-Git.git",
-         "web" : "https://github.com/cynovg/Test-Perl-Critic-Git"
+         "url" : "https://github.com/mrsndmn/Test-Perl-Critic-Git.git",
+         "web" : "https://github.com/mrsndmn/Test-Perl-Critic-Git"
       }
    },
    "version" : "1.06",
